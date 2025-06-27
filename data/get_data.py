@@ -1,0 +1,35 @@
+#api_key = "DAQZAZLIRTX856KK"
+import json
+import requests
+import os
+
+with open("../api_key.txt") as file:
+    text = file.read()
+    api_key = text.split(" ")[-1]
+
+def fetch_data(stock_name, api_key=api_key, output_size='full'):
+    # download data
+    url = f'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={stock_name}&outputsize={output_size}&apikey={api_key}&datatype=json'
+    r = requests.get(url)
+    data = r.json()
+
+    # save data
+    with open(f'./data_dump/{stock_name}.json', 'w') as json_file:
+        json.dump(data, json_file, indent=4)
+
+if __name__ == "__main__":
+
+    with open('./stock_names.txt', 'r') as file:
+        stock_list = [line.strip() for line in file.readlines()]
+    
+    # only 25 api requests per day
+    counter = 0
+    for stock in stock_list:
+        if not os.path.exists(f'./data_dump/{stock}.json'):
+            if counter < 25:
+                print(f'get data_dump/{stock}.json')
+                fetch_data(stock)
+                counter+=1
+            else:
+                print(f'API limit reached')
+                break
