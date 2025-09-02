@@ -8,7 +8,6 @@ txt_file = "my_repo"
 with open("../api_key.txt") as file:
     text = file.read()
     api_key = text.split(" ")[-1]
-print(api_key)
 
 def fetch_data(stock_name, api_key=api_key, output_size='full'):
     # download data
@@ -21,10 +20,12 @@ def fetch_data(stock_name, api_key=api_key, output_size='full'):
         json.dump(data, json_file, indent=4)
 
 if __name__ == "__main__":
+    print("Get Data")
 
     with open(f'./{txt_file}.txt', 'r') as file:
         stock_list = [line.strip() for line in file.readlines()]
-    
+    print(f"Open {txt_file}.txt")
+
     # only 25 api requests per day
     counter = 0
     for stock in stock_list:
