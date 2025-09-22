@@ -115,13 +115,13 @@ api_key = "************"
 - A sequence of metrics across all stocks is fed to the model.
 - Training occurs in two phases:
   1. On training set for several rounds
-  2. Testing on unseen points
+  2. One forward online learning run on unseen test set
 
 ## 🧠 What You’ll Learn
-How to preprocess financial data into model-ready sequences
-Why triangular probability targets can help vs. one-hot
-How to apply causal attention in a non-language setting
-How to evaluate models like portfolios, not just with accuracy
+- How to preprocess financial data into model-ready sequences
+- Why triangular probability targets can help vs. one-hot
+- How to apply causal attention in a non-language setting
+- How to evaluate models like portfolios, not just with accuracy
 
 ## 📊 Evaluation
 
