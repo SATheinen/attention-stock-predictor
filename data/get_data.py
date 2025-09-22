@@ -2,8 +2,12 @@ import json
 import requests
 import os
 
-folder_name = "my_repo"
-txt_file = "my_repo"
+# File containing stock names
+txt_file = "stock_names"
+
+# Where to drop the stock data
+#!!! The folder should be empty before downloading the files !!!
+folder_name = "data_dump"
 
 with open("../api_key.txt") as file:
     text = file.read()
@@ -20,12 +24,16 @@ def fetch_data(stock_name, api_key=api_key, output_size='full'):
         json.dump(data, json_file, indent=4)
 
 if __name__ == "__main__":
-    print("Get Data")
+    
+    if not os.listdir(f'./{folder_name}/'):
+        print(f"Get Data \n Always be check your daily Alpha Vantage API limit!")
+    else:
+        raise Exception(f"Target folder NOT empty! \n Clear folder before running this script again!")
 
     with open(f'./{txt_file}.txt', 'r') as file:
         stock_list = [line.strip() for line in file.readlines()]
     print(f"Open {txt_file}.txt")
-
+    
     # only 25 api requests per day
     counter = 0
     for stock in stock_list:
