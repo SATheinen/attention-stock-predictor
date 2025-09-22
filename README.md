@@ -18,20 +18,18 @@ Currently transformers are very powerful tools used across various tasks. Since 
 ## 📜 Table of Contents
 
 - [Quickstart](#quickstart)
-- [Introduction](#introduction)
-- [Installation](#installation)
-- [Usage](#usage)
+- [API Key Setup](#api-key-setup)
 - [Features](#features)
 - [Project Structure](#project-structure)
 - [Configuration](#configuration)
 - [Data Pipeline](#data-pipeline)
-- [Model Architecture](#model-architecture)
+- [What You’ll Learn](#-what-youll-learn)
 - [Evaluation](#evaluation)
-- [Examples](#examples)
+- [Example Outputs](#example-outputs)
 - [Troubleshooting](#troubleshooting)
 - [License](#license)
 
-## 🚀 Getting Started
+## 🚀 Quickstart
 
 ### 1. Clone repo
 ```bash
@@ -134,7 +132,15 @@ api_key = "************"
 - Evaluation handled by external post-processing script
 
 ## 📈 Example Outputs
-(plots and results will be generated in the notebook — add some images here later for visual appeal, e.g. training loss curves, portfolio equity curve, allocation heatmap)
+(plots and results will be generated in the notebook)
+
+Relative allocations over time:
+
+![Relative Allocations](images/allocations.png)
+
+Returns and optimal leverage heatmaps:
+
+![Returns & Leverage](images/returns_leverage.png)
 
 ## ❗ Troubleshooting
 ⏳ Slow training → MPS/CPU fallback, try fewer epochs
