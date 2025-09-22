@@ -25,6 +25,10 @@ def fetch_data(stock_name, api_key=api_key, output_size='full'):
 
 if __name__ == "__main__":
     
+    # Create Folder if not exist
+    if not os.path.isdir(f"{folder_name}"):
+        os.mkdir(f"{folder_name}")
+    
     if not os.listdir(f'./{folder_name}/'):
         print(f"Get Data \n Always be check your daily Alpha Vantage API limit!")
     else:
