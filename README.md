@@ -1,11 +1,23 @@
-# Stock Market Prediction using LSTM with Causal Attention – an experiment
+# 🔎 🧠 Stock Market Prediction using LSTM with Causal Attention – an experiment
 
 ## Introduction
 
+Currently transformers are very powerful tools used across various tasks. Since many current projects run with transformers, I want to learn exactly how they work and deepen my knowledge of machine learning in general. The main purpose and strength of transformers are clearly LLM's, but what else can it do? That is what I want to explore in this project where we are going to transform a time series into a probability distribution and finally use it to calculate a portfolio allocation.
+
 `attention-stock-predictor` is a PyTorch-based transformer model designed for experimenting with stock market predictions using multi-stock OHLCV data. Although it does **not reliably predict next-day returns**, it showcases advanced techniques like probability distribution modeling, Wasserstein loss, and allocation-based evaluation—highlighting technical depth in applying modern deep learning to financial time series.
 
-## Table of Contents
+## ✨ Highlights
 
+🔎 Experiment-focused: Learn how attention behaves on time series
+📊 Financial data pipeline: Automated OHLCV download via Alpha Vantage
+🎯 Probability modeling: Target distributions instead of point predictions
+📐 Wasserstein loss: More meaningful training for distributions
+📈 Portfolio-style evaluation: Allocation, returns, drawdown, Sharpe ratio
+🛠️ Custom optimizer: Arbitrary momentum scheduling
+
+## 📜 Table of Contents
+
+- [Quickstart](#quickstart)
 - [Introduction](#introduction)
 - [Installation](#installation)
 - [Usage](#usage)
@@ -21,22 +33,36 @@
 
 ## 🚀 Getting Started
 
-### 1. Clone the repository
-
+### 1. Clone repo
 ```bash
-git clone https://github.com/SATheinen/stock-lstm-causal-attention.git
-cd stock-lstm-causal-attention
+git clone https://github.com/SATheinen/attention-stock-predictor.git
+cd attention-stock-predictor
 ```
 
-### Install Dependencies
-
+### 2. Create environment
+Tested in Python 3.12.5
 ```bash
+python -m venv venv
+source venv/bin/activate
 pip install -r requirements.txt
 ```
 
----
+### 3. Add API key
+```bash
+echo 'api_key = "YOUR_KEY"' > api_key.txt
+```
 
-## 📥 API Key Setup
+### 4. Fetch data
+```bash
+python data/get_data.py
+```
+
+### 5. Train model (open notebook)
+```bash
+jupyter-notebook model/lstm.ipynb
+```
+
+## 🔑 API Key Setup
 
 To download or update stock data, this project uses the [Alpha Vantage API](https://www.alphavantage.co/). You need to provide your own API key.
 
@@ -50,37 +76,16 @@ api_key = "************"
 
 **Important:** Do not share this file or include it in version control.
 
-## Usage
-
-1. Create a free [Alpha Vantage API key](https://www.alphavantage.co/).
-2. Save it in a file named `api_key.txt` in the root directory:
-
-```python
-api_key = "YOUR_API_KEY_HERE"
-```
-
-3. Run the data collection script:
-
-```bash
-python data/get_data.py
-```
-
-4. Open and run the model training notebook:
-
-```bash
-jupyter notebook model/lstm.ipynb
-```
-
-## Features
+## ✨ Features
 
 - Transformer model for multi-stock prediction
 - Sequence-to-distribution prediction using triangular probability targets
 - Wasserstein loss for training
-- Backtesting via allocation-based evaluation
+- Forward testing via allocation-based evaluation
 - Custom optimizer with arbitrary momentum scheduling
 - Metrics: annualized return, drawdown, Sharpe ratio
 
-## Project Structure
+## 🏗️ Project Structure
 
 ```
 .
@@ -88,22 +93,21 @@ jupyter notebook model/lstm.ipynb
 ├── data/
 │   ├── data_dump/             # Saved OHLCV datasets
 │   ├── get_data.py            # Script to fetch stock data
-│   ├── stock_names.txt        # List of stocks to fetch
-│   └── ...                    # Additional folders (repo versions etc.)
+│   └── stock_names.txt        # List of stocks to fetch
 ├── model/
 │   └── lstm.ipynb             # Main notebook with model training
 ├── requirements.txt           # Python dependencies
 └── README.md                  # This file
 ```
 
-## Configuration
+## ⚙️ Configuration
 
 - API Key: `api_key.txt`
 - List of Stocks: `data/stock_names.txt`
 - Dataset Path: `data/data_dump/`
 - All hyperparameters and training controls are in the notebook.
 
-## Data Pipeline
+## 🔢 Data Pipeline
 
 - Stock data (OHLCV) is downloaded via Alpha Vantage.
 - Daily percentage changes are computed.
@@ -113,15 +117,13 @@ jupyter notebook model/lstm.ipynb
   1. On training set for several rounds
   2. Testing on unseen points
 
-## Model Architecture
+## 🧠 What You’ll Learn
+How to preprocess financial data into model-ready sequences
+Why triangular probability targets can help vs. one-hot
+How to apply causal attention in a non-language setting
+How to evaluate models like portfolios, not just with accuracy
 
-- Transformer-style encoder
-- Inputs: `seq_len` time steps of engineered features
-- Outputs: Probability distribution over target outcomes
-- Loss: Wasserstein distance between predicted and target distributions
-- Custom optimizer: `ArbitraryMomentumSGD`
-
-## Evaluation
+## 📊 Evaluation
 
 - Convert output distributions to stock allocations
 - Compute:
@@ -131,17 +133,13 @@ jupyter notebook model/lstm.ipynb
   - Sharpe ratio
 - Evaluation handled by external post-processing script
 
-## Examples
+## 📈 Example Outputs
+(plots and results will be generated in the notebook — add some images here later for visual appeal, e.g. training loss curves, portfolio equity curve, allocation heatmap)
 
-Visuals and training results can be found in the notebook:
-`model/lstm.ipynb`
+## ❗ Troubleshooting
+⏳ Slow training → MPS/CPU fallback, try fewer epochs
+🔑 API errors → Check Alpha Vantage key & rate limits
+🗒 Empty data → Verify tickers in stock_names.txt
 
-## Troubleshooting
-
-- **API Errors**: Ensure you are not hitting the Alpha Vantage rate limit.
-- **Empty Data**: Check if your stock list is valid in `stock_names.txt`.
-- **Slow Training**: MPS acceleration is attempted but falls back to CPU.
-
-## License
-
-This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
+## 📜 License
+MIT License – free to use, adapt, and learn from.
