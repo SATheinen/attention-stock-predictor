@@ -52,12 +52,14 @@ echo 'api_key = "YOUR_KEY"' > api_key.txt
 
 ### 4. Fetch data
 ```bash
-python data/get_data.py
+cd data/
+python get_data.py
 ```
 
 ### 5. Train model (open notebook)
 ```bash
-jupyter-notebook model/lstm.ipynb
+cd ../model/
+jupyter-notebook lstm.ipynb
 ```
 
 ## 🔑 API Key Setup
